@@ -1,0 +1,8 @@
+﻿CREATE TABLE [dbo].[EPISODE]
+(
+	[ep_id]		INT NOT NULL PRIMARY KEY,
+	[ep_cmpid]	INT NOT NULL,
+	[ep_date]	DATE DEFAULT GETDATE(),
+	[ep_desc]	VARCHAR(MAX),
+	CONSTRAINT [FK_EPISODE_ToCAMPAIGN] FOREIGN KEY ([ep_cmpid]) REFERENCES [CAMPAIGN]([cmp_id])
+)

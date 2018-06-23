@@ -1,0 +1,10 @@
+﻿CREATE TABLE [dbo].[CHARACTER_CLASSES]
+(
+	[ccl_cid] INT NOT NULL , 
+    [ccl_clid] INT NOT NULL, 
+    [ccl_level] INT NULL DEFAULT 0 ,
+	PRIMARY KEY ([ccl_clid], [ccl_cid]), 
+    CONSTRAINT [FK_CHARACTER_CLASSES_ToCHARACTER] FOREIGN KEY ([ccl_cid]) REFERENCES [CHARACTER]([c_id]),
+	CONSTRAINT [FK_CHARACTER_CLASSES_ToCLASS] FOREIGN KEY ([ccl_clid]) REFERENCES [CLASS]([cl_id]) 
+    
+)

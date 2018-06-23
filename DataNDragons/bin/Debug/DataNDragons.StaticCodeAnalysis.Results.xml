@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Problems>
+  <Problem>
+    <Rule>Microsoft.Rules.Data.SR0009</Rule>
+    <ProblemDescription>Avoid VARCHAR of only 2 elements.</ProblemDescription>
+    <SourceFile>D:\Git\DataNDragons\DataNDragons\dbo\Tables\CHARACTER.sql</SourceFile>
+    <Line>5</Line>
+    <Column>21</Column>
+    <Severity>Warning</Severity>
+  </Problem>
+</Problems>
