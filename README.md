@@ -3,7 +3,7 @@ A D&amp;D 5th Edition database application to help DMs plan and track DND campai
 
 
 
-Editors Note: This project is still in its infancy, if you would like to contribute, or just to see what I'm working on next, check out the projects section of this repo. 
+Editors Note: This project is still in its infancy, so if you would like to contribute - or just to see what I'm working on next - check out the projects section of this repo. 
 
 
 
