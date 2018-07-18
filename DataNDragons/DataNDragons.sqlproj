@@ -144,7 +144,6 @@
     <Build Include="dbo\Tables\QUESTLINE.sql" />
     <Build Include="dbo\Tables\EPISODE.sql" />
     <Build Include="dbo\Tables\EFFECT.sql" />
-    <Build Include="dbo\Tables\EFFECT_PROCEDURE.sql" />
     <Build Include="dbo\Tables\ITEM_EFFECT.sql" />
     <Build Include="dbo\Tables\SPELLS_EFFECT.sql" />
     <Build Include="dbo\Tables\SPELLS_SLOTS.sql" />

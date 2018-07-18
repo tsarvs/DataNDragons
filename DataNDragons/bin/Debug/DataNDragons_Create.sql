@@ -245,33 +245,6 @@ CREATE TABLE [dbo].[ITEM_EFFECT] (
 
 
 GO
-PRINT N'Creating [dbo].[EFFECT_PROCEDURE]...';
-
-
-GO
-CREATE TABLE [dbo].[EFFECT_PROCEDURE] (
-    [efp_id]        INT           NOT NULL,
-    [efp_efid]      INT           NOT NULL,
-    [efp_procedure] VARCHAR (MAX) NULL,
-    PRIMARY KEY CLUSTERED ([efp_id] ASC)
-);
-
-
-GO
-PRINT N'Creating [dbo].[EFFECT]...';
-
-
-GO
-CREATE TABLE [dbo].[EFFECT] (
-    [ef_id]           INT           NOT NULL,
-    [ef_name]         VARCHAR (150) NULL,
-    [ef_desc]         VARCHAR (MAX) NULL,
-    [ef_hasprocedure] BIT           NULL,
-    PRIMARY KEY CLUSTERED ([ef_id] ASC)
-);
-
-
-GO
 PRINT N'Creating [dbo].[EPISODE]...';
 
 
@@ -345,18 +318,6 @@ CREATE TABLE [dbo].[CHARACTER_FEATS] (
     [cf_cid] INT NOT NULL,
     [cf_fid] INT NOT NULL,
     PRIMARY KEY CLUSTERED ([cf_fid] ASC, [cf_cid] ASC)
-);
-
-
-GO
-PRINT N'Creating [dbo].[FEATS]...';
-
-
-GO
-CREATE TABLE [dbo].[FEATS] (
-    [f_id]   INT        NOT NULL,
-    [f_name] NCHAR (10) NULL,
-    PRIMARY KEY CLUSTERED ([f_id] ASC)
 );
 
 
@@ -779,6 +740,32 @@ CREATE TABLE [dbo].[SPELLS_EFFECT] (
 
 
 GO
+PRINT N'Creating [dbo].[EFFECT]...';
+
+
+GO
+CREATE TABLE [dbo].[EFFECT] (
+    [ef_id]   INT           NOT NULL,
+    [ef_name] VARCHAR (150) NULL,
+    [ef_desc] VARCHAR (MAX) NULL,
+    PRIMARY KEY CLUSTERED ([ef_id] ASC)
+);
+
+
+GO
+PRINT N'Creating [dbo].[FEATS]...';
+
+
+GO
+CREATE TABLE [dbo].[FEATS] (
+    [f_id]   INT        NOT NULL,
+    [f_name] NCHAR (10) NULL,
+    [f_efid] INT        NULL,
+    PRIMARY KEY CLUSTERED ([f_id] ASC)
+);
+
+
+GO
 PRINT N'Creating unnamed constraint on [dbo].[EPISODE]...';
 
 
@@ -1109,15 +1096,6 @@ PRINT N'Creating [dbo].[FK_ITEM_EFFECT_ToEFFECT]...';
 GO
 ALTER TABLE [dbo].[ITEM_EFFECT]
     ADD CONSTRAINT [FK_ITEM_EFFECT_ToEFFECT] FOREIGN KEY ([if_efid]) REFERENCES [dbo].[EFFECT] ([ef_id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_EFFECT_PROCEDURE_ToEFFECT]...';
-
-
-GO
-ALTER TABLE [dbo].[EFFECT_PROCEDURE]
-    ADD CONSTRAINT [FK_EFFECT_PROCEDURE_ToEFFECT] FOREIGN KEY ([efp_efid]) REFERENCES [dbo].[EFFECT] ([ef_id]);
 
 
 GO
@@ -1559,6 +1537,15 @@ PRINT N'Creating [dbo].[FK_SPELLS_EFFECT_ToEFFECT]...';
 GO
 ALTER TABLE [dbo].[SPELLS_EFFECT]
     ADD CONSTRAINT [FK_SPELLS_EFFECT_ToEFFECT] FOREIGN KEY ([sef_efid]) REFERENCES [dbo].[EFFECT] ([ef_id]);
+
+
+GO
+PRINT N'Creating [dbo].[FK_FEATS_ToEFFECT]...';
+
+
+GO
+ALTER TABLE [dbo].[FEATS]
+    ADD CONSTRAINT [FK_FEATS_ToEFFECT] FOREIGN KEY ([f_efid]) REFERENCES [dbo].[EFFECT] ([ef_id]);
 
 
 GO
