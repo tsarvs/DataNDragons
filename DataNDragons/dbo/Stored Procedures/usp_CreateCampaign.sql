@@ -22,7 +22,7 @@ BEGIN
 	INSERT INTO CAMPAIGN(cmp_name, cmp_startdate, cmp_dm)
 	VALUES(
 		@campaigntitle,
-	    CURDATE(),
+	    GETDATE(),
 		@dungeonmaster)
 
 END

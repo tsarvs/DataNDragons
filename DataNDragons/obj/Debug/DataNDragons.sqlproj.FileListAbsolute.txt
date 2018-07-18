@@ -12,3 +12,7 @@ D:\Git\DataNDragons\DataNDragons\bin\Debug\DataNDragons.dll
 D:\Git\DataNDragons\DataNDragons\bin\Debug\DataNDragons.pdb
 D:\Git\DataNDragons\DataNDragons\obj\Debug\DataNDragons.dll
 D:\Git\DataNDragons\DataNDragons\obj\Debug\DataNDragons.pdb
+D:\Git\DataNDragons\DataNDragons\obj\Debug\Model.xml
+D:\Git\DataNDragons\DataNDragons\obj\Debug\refactor.xml
+D:\Git\DataNDragons\DataNDragons\obj\Debug\postdeploy.sql
+D:\Git\DataNDragons\DataNDragons\obj\Debug\predeploy.sql
