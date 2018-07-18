@@ -233,6 +233,31 @@ IF fulltextserviceproperty(N'IsFulltextInstalled') = 1
 
 
 GO
+PRINT N'Creating [dbo].[ITEM_EFFECT]...';
+
+
+GO
+CREATE TABLE [dbo].[ITEM_EFFECT] (
+    [ie_iid]  INT NOT NULL,
+    [if_efid] INT NOT NULL,
+    PRIMARY KEY CLUSTERED ([if_efid] ASC, [ie_iid] ASC)
+);
+
+
+GO
+PRINT N'Creating [dbo].[EFFECT_PROCEDURE]...';
+
+
+GO
+CREATE TABLE [dbo].[EFFECT_PROCEDURE] (
+    [efp_id]        INT           NOT NULL,
+    [efp_efid]      INT           NOT NULL,
+    [efp_procedure] VARCHAR (MAX) NULL,
+    PRIMARY KEY CLUSTERED ([efp_id] ASC)
+);
+
+
+GO
 PRINT N'Creating [dbo].[EFFECT]...';
 
 
@@ -489,6 +514,167 @@ CREATE TABLE [dbo].[ITEM] (
 
 
 GO
+PRINT N'Creating [dbo].[CHARACTER]...';
+
+
+GO
+CREATE TABLE [dbo].[CHARACTER] (
+    [c_id]                   INT           NOT NULL,
+    [c_name]                 VARCHAR (100) NULL,
+    [c_rid]                  INT           NULL,
+    [c_alignment]            VARCHAR (2)   NULL,
+    [c_aid]                  INT           NULL,
+    [c_sid]                  INT           NULL,
+    [c_hpcurrent]            INT           NULL,
+    [c_hpmax]                INT           NULL,
+    [c_hptemp]               INT           NULL,
+    [c_inspiration]          BIT           NULL,
+    [c_spellslots_remaining] INT           NULL,
+    [c_spellslots_total]     INT           NULL,
+    [c_bid]                  INT           NULL,
+    [c_isNPC]                BIT           NULL,
+    PRIMARY KEY CLUSTERED ([c_id] ASC)
+);
+
+
+GO
+PRINT N'Creating [dbo].[CHARACTER_CLASSES]...';
+
+
+GO
+CREATE TABLE [dbo].[CHARACTER_CLASSES] (
+    [ccl_cid]   INT NOT NULL,
+    [ccl_clid]  INT NOT NULL,
+    [ccl_level] INT NULL,
+    PRIMARY KEY CLUSTERED ([ccl_clid] ASC, [ccl_cid] ASC)
+);
+
+
+GO
+PRINT N'Creating [dbo].[CLASS]...';
+
+
+GO
+CREATE TABLE [dbo].[CLASS] (
+    [cl_id]   INT           NOT NULL,
+    [cl_name] VARCHAR (100) NULL,
+    [cl_aid]  INT           NULL,
+    [cl_sid]  INT           NULL,
+    CONSTRAINT [PK_CLASS] PRIMARY KEY CLUSTERED ([cl_id] ASC)
+);
+
+
+GO
+PRINT N'Creating [dbo].[ABILITY]...';
+
+
+GO
+CREATE TABLE [dbo].[ABILITY] (
+    [a_id]  INT NOT NULL,
+    [a_CHA] INT NULL,
+    [a_CON] INT NULL,
+    [a_DEX] INT NULL,
+    [a_INT] INT NULL,
+    [a_STR] INT NULL,
+    [a_WIS] INT NULL,
+    PRIMARY KEY CLUSTERED ([a_id] ASC)
+);
+
+
+GO
+PRINT N'Creating [dbo].[EVENT_OCCURRED_TYPES]...';
+
+
+GO
+CREATE TABLE [dbo].[EVENT_OCCURRED_TYPES] (
+    [eot_eoid] INT NOT NULL,
+    [eot_etid] INT NOT NULL,
+    PRIMARY KEY CLUSTERED ([eot_etid] ASC, [eot_eoid] ASC)
+);
+
+
+GO
+PRINT N'Creating [dbo].[EVENT_TYPE]...';
+
+
+GO
+CREATE TABLE [dbo].[EVENT_TYPE] (
+    [et_id]   INT           NOT NULL,
+    [et_name] VARCHAR (100) NULL,
+    PRIMARY KEY CLUSTERED ([et_id] ASC)
+);
+
+
+GO
+PRINT N'Creating [dbo].[EVENT_OCCURRED]...';
+
+
+GO
+CREATE TABLE [dbo].[EVENT_OCCURRED] (
+    [eo_id]    INT           NOT NULL,
+    [eo_cmpid] INT           NULL,
+    [eo_lid]   INT           NULL,
+    [eo_desc]  VARCHAR (MAX) NULL,
+    [eo_start] DATETIME      NULL,
+    [eo_end]   DATETIME      NULL,
+    PRIMARY KEY CLUSTERED ([eo_id] ASC)
+);
+
+
+GO
+PRINT N'Creating [dbo].[RACE_BACKGROUND]...';
+
+
+GO
+CREATE TABLE [dbo].[RACE_BACKGROUND] (
+    [rb_rid] INT NOT NULL,
+    [rb_bid] INT NOT NULL,
+    CONSTRAINT [PK_RACE_BACKGROUND] PRIMARY KEY CLUSTERED ([rb_rid] ASC, [rb_bid] ASC)
+);
+
+
+GO
+PRINT N'Creating [dbo].[RACE]...';
+
+
+GO
+CREATE TABLE [dbo].[RACE] (
+    [r_id]   INT           NOT NULL,
+    [r_aid]  INT           NULL,
+    [r_sid]  INT           NULL,
+    [r_name] VARCHAR (100) NULL,
+    PRIMARY KEY CLUSTERED ([r_id] ASC)
+);
+
+
+GO
+PRINT N'Creating [dbo].[SKILL]...';
+
+
+GO
+CREATE TABLE [dbo].[SKILL] (
+    [s_id]             INT NOT NULL,
+    [s_animalhandling] INT NOT NULL,
+    [s_arcana]         INT NOT NULL,
+    [s_athletics]      INT NOT NULL,
+    [s_deception]      INT NOT NULL,
+    [s_history]        INT NOT NULL,
+    [s_insight]        INT NOT NULL,
+    [s_intimidation]   INT NOT NULL,
+    [s_medicine]       INT NOT NULL,
+    [s_nature]         INT NOT NULL,
+    [s_perception]     INT NOT NULL,
+    [s_performance]    INT NOT NULL,
+    [s_persuasion]     INT NOT NULL,
+    [s_religion]       INT NOT NULL,
+    [s_sleightofhand]  INT NOT NULL,
+    [s_stealth]        INT NOT NULL,
+    [s_survival]       INT NOT NULL,
+    CONSTRAINT [PK_SKILL] PRIMARY KEY CLUSTERED ([s_id] ASC)
+);
+
+
+GO
 PRINT N'Creating [dbo].[ITEM_BACKGROUND]...';
 
 
@@ -593,192 +779,6 @@ CREATE TABLE [dbo].[SPELLS_EFFECT] (
 
 
 GO
-PRINT N'Creating [dbo].[ITEM_EFFECT]...';
-
-
-GO
-CREATE TABLE [dbo].[ITEM_EFFECT] (
-    [ie_iid]  INT NOT NULL,
-    [if_efid] INT NOT NULL,
-    PRIMARY KEY CLUSTERED ([if_efid] ASC, [ie_iid] ASC)
-);
-
-
-GO
-PRINT N'Creating [dbo].[EFFECT_PROCEDURE]...';
-
-
-GO
-CREATE TABLE [dbo].[EFFECT_PROCEDURE] (
-    [efp_id]        INT           NOT NULL,
-    [efp_efid]      INT           NOT NULL,
-    [efp_procedure] VARCHAR (MAX) NULL,
-    PRIMARY KEY CLUSTERED ([efp_id] ASC)
-);
-
-
-GO
-PRINT N'Creating [dbo].[EVENT_OCCURRED_TYPES]...';
-
-
-GO
-CREATE TABLE [dbo].[EVENT_OCCURRED_TYPES] (
-    [eot_eoid] INT NOT NULL,
-    [eot_etid] INT NOT NULL,
-    PRIMARY KEY CLUSTERED ([eot_etid] ASC, [eot_eoid] ASC)
-);
-
-
-GO
-PRINT N'Creating [dbo].[EVENT_TYPE]...';
-
-
-GO
-CREATE TABLE [dbo].[EVENT_TYPE] (
-    [et_id]   INT           NOT NULL,
-    [et_name] VARCHAR (100) NULL,
-    PRIMARY KEY CLUSTERED ([et_id] ASC)
-);
-
-
-GO
-PRINT N'Creating [dbo].[RACE_BACKGROUND]...';
-
-
-GO
-CREATE TABLE [dbo].[RACE_BACKGROUND] (
-    [rb_rid] INT NOT NULL,
-    [rb_bid] INT NOT NULL,
-    CONSTRAINT [PK_RACE_BACKGROUND] PRIMARY KEY CLUSTERED ([rb_rid] ASC, [rb_bid] ASC)
-);
-
-
-GO
-PRINT N'Creating [dbo].[SKILL]...';
-
-
-GO
-CREATE TABLE [dbo].[SKILL] (
-    [s_id]             INT NOT NULL,
-    [s_animalhandling] INT NOT NULL,
-    [s_arcana]         INT NOT NULL,
-    [s_athletics]      INT NOT NULL,
-    [s_deception]      INT NOT NULL,
-    [s_history]        INT NOT NULL,
-    [s_insight]        INT NOT NULL,
-    [s_intimidation]   INT NOT NULL,
-    [s_medicine]       INT NOT NULL,
-    [s_nature]         INT NOT NULL,
-    [s_perception]     INT NOT NULL,
-    [s_performance]    INT NOT NULL,
-    [s_persuasion]     INT NOT NULL,
-    [s_religion]       INT NOT NULL,
-    [s_sleightofhand]  INT NOT NULL,
-    [s_stealth]        INT NOT NULL,
-    [s_survival]       INT NOT NULL,
-    CONSTRAINT [PK_SKILL] PRIMARY KEY CLUSTERED ([s_id] ASC)
-);
-
-
-GO
-PRINT N'Creating [dbo].[ABILITY]...';
-
-
-GO
-CREATE TABLE [dbo].[ABILITY] (
-    [a_id]  INT NOT NULL,
-    [a_CHA] INT NULL,
-    [a_CON] INT NULL,
-    [a_DEX] INT NULL,
-    [a_INT] INT NULL,
-    [a_STR] INT NULL,
-    [a_WIS] INT NULL,
-    PRIMARY KEY CLUSTERED ([a_id] ASC)
-);
-
-
-GO
-PRINT N'Creating [dbo].[CHARACTER_CLASSES]...';
-
-
-GO
-CREATE TABLE [dbo].[CHARACTER_CLASSES] (
-    [ccl_cid]   INT NOT NULL,
-    [ccl_clid]  INT NOT NULL,
-    [ccl_level] INT NULL,
-    PRIMARY KEY CLUSTERED ([ccl_clid] ASC, [ccl_cid] ASC)
-);
-
-
-GO
-PRINT N'Creating [dbo].[RACE]...';
-
-
-GO
-CREATE TABLE [dbo].[RACE] (
-    [r_id]   INT           NOT NULL,
-    [r_aid]  INT           NULL,
-    [r_sid]  INT           NULL,
-    [r_name] VARCHAR (100) NULL,
-    PRIMARY KEY CLUSTERED ([r_id] ASC)
-);
-
-
-GO
-PRINT N'Creating [dbo].[CLASS]...';
-
-
-GO
-CREATE TABLE [dbo].[CLASS] (
-    [cl_id]   INT           NOT NULL,
-    [cl_name] VARCHAR (100) NULL,
-    [cl_aid]  INT           NULL,
-    [cl_sid]  INT           NULL,
-    CONSTRAINT [PK_CLASS] PRIMARY KEY CLUSTERED ([cl_id] ASC)
-);
-
-
-GO
-PRINT N'Creating [dbo].[CHARACTER]...';
-
-
-GO
-CREATE TABLE [dbo].[CHARACTER] (
-    [c_id]                   INT           NOT NULL,
-    [c_name]                 VARCHAR (100) NULL,
-    [c_rid]                  INT           NULL,
-    [c_alignment]            VARCHAR (2)   NULL,
-    [c_aid]                  INT           NULL,
-    [c_sid]                  INT           NULL,
-    [c_hpcurrent]            INT           NULL,
-    [c_hpmax]                INT           NULL,
-    [c_hptemp]               INT           NULL,
-    [c_inspiration]          BIT           NULL,
-    [c_spellslots_remaining] INT           NULL,
-    [c_spellslots_total]     INT           NULL,
-    [c_bid]                  INT           NULL,
-    [c_isNPC]                BIT           NULL,
-    PRIMARY KEY CLUSTERED ([c_id] ASC)
-);
-
-
-GO
-PRINT N'Creating [dbo].[EVENT_OCCURRED]...';
-
-
-GO
-CREATE TABLE [dbo].[EVENT_OCCURRED] (
-    [eo_id]    INT           NOT NULL,
-    [eo_cmpid] INT           NULL,
-    [eo_lid]   INT           NULL,
-    [eo_desc]  VARCHAR (MAX) NULL,
-    [eo_start] DATETIME      NULL,
-    [eo_end]   DATETIME      NULL,
-    PRIMARY KEY CLUSTERED ([eo_id] ASC)
-);
-
-
-GO
 PRINT N'Creating unnamed constraint on [dbo].[EPISODE]...';
 
 
@@ -806,84 +806,66 @@ ALTER TABLE [dbo].[SPELLS]
 
 
 GO
-PRINT N'Creating unnamed constraint on [dbo].[SPELLS_SLOTS]...';
+PRINT N'Creating unnamed constraint on [dbo].[CHARACTER_CLASSES]...';
 
 
 GO
-ALTER TABLE [dbo].[SPELLS_SLOTS]
-    ADD DEFAULT 0 FOR [ss_lvl1];
+ALTER TABLE [dbo].[CHARACTER_CLASSES]
+    ADD DEFAULT 0 FOR [ccl_level];
 
 
 GO
-PRINT N'Creating unnamed constraint on [dbo].[SPELLS_SLOTS]...';
+PRINT N'Creating unnamed constraint on [dbo].[ABILITY]...';
 
 
 GO
-ALTER TABLE [dbo].[SPELLS_SLOTS]
-    ADD DEFAULT 0 FOR [ss_lvl2];
+ALTER TABLE [dbo].[ABILITY]
+    ADD DEFAULT 0 FOR [a_CHA];
 
 
 GO
-PRINT N'Creating unnamed constraint on [dbo].[SPELLS_SLOTS]...';
+PRINT N'Creating unnamed constraint on [dbo].[ABILITY]...';
 
 
 GO
-ALTER TABLE [dbo].[SPELLS_SLOTS]
-    ADD DEFAULT 0 FOR [ss_lvl3];
+ALTER TABLE [dbo].[ABILITY]
+    ADD DEFAULT 0 FOR [a_CON];
 
 
 GO
-PRINT N'Creating unnamed constraint on [dbo].[SPELLS_SLOTS]...';
+PRINT N'Creating unnamed constraint on [dbo].[ABILITY]...';
 
 
 GO
-ALTER TABLE [dbo].[SPELLS_SLOTS]
-    ADD DEFAULT 0 FOR [ss_lvl4];
+ALTER TABLE [dbo].[ABILITY]
+    ADD DEFAULT 0 FOR [a_DEX];
 
 
 GO
-PRINT N'Creating unnamed constraint on [dbo].[SPELLS_SLOTS]...';
+PRINT N'Creating unnamed constraint on [dbo].[ABILITY]...';
 
 
 GO
-ALTER TABLE [dbo].[SPELLS_SLOTS]
-    ADD DEFAULT 0 FOR [ss_lvl5];
+ALTER TABLE [dbo].[ABILITY]
+    ADD DEFAULT 0 FOR [a_INT];
 
 
 GO
-PRINT N'Creating unnamed constraint on [dbo].[SPELLS_SLOTS]...';
+PRINT N'Creating unnamed constraint on [dbo].[ABILITY]...';
 
 
 GO
-ALTER TABLE [dbo].[SPELLS_SLOTS]
-    ADD DEFAULT 0 FOR [ss_lvl6];
+ALTER TABLE [dbo].[ABILITY]
+    ADD DEFAULT 0 FOR [a_STR];
 
 
 GO
-PRINT N'Creating unnamed constraint on [dbo].[SPELLS_SLOTS]...';
+PRINT N'Creating unnamed constraint on [dbo].[ABILITY]...';
 
 
 GO
-ALTER TABLE [dbo].[SPELLS_SLOTS]
-    ADD DEFAULT 0 FOR [ss_lvl7];
-
-
-GO
-PRINT N'Creating unnamed constraint on [dbo].[SPELLS_SLOTS]...';
-
-
-GO
-ALTER TABLE [dbo].[SPELLS_SLOTS]
-    ADD DEFAULT 0 FOR [ss_lvl8];
-
-
-GO
-PRINT N'Creating unnamed constraint on [dbo].[SPELLS_SLOTS]...';
-
-
-GO
-ALTER TABLE [dbo].[SPELLS_SLOTS]
-    ADD DEFAULT 0 FOR [ss_lvl9];
+ALTER TABLE [dbo].[ABILITY]
+    ADD DEFAULT 0 FOR [a_WIS];
 
 
 GO
@@ -1031,66 +1013,111 @@ ALTER TABLE [dbo].[SKILL]
 
 
 GO
-PRINT N'Creating unnamed constraint on [dbo].[ABILITY]...';
+PRINT N'Creating unnamed constraint on [dbo].[SPELLS_SLOTS]...';
 
 
 GO
-ALTER TABLE [dbo].[ABILITY]
-    ADD DEFAULT 0 FOR [a_CHA];
+ALTER TABLE [dbo].[SPELLS_SLOTS]
+    ADD DEFAULT 0 FOR [ss_lvl1];
 
 
 GO
-PRINT N'Creating unnamed constraint on [dbo].[ABILITY]...';
+PRINT N'Creating unnamed constraint on [dbo].[SPELLS_SLOTS]...';
 
 
 GO
-ALTER TABLE [dbo].[ABILITY]
-    ADD DEFAULT 0 FOR [a_CON];
+ALTER TABLE [dbo].[SPELLS_SLOTS]
+    ADD DEFAULT 0 FOR [ss_lvl2];
 
 
 GO
-PRINT N'Creating unnamed constraint on [dbo].[ABILITY]...';
+PRINT N'Creating unnamed constraint on [dbo].[SPELLS_SLOTS]...';
 
 
 GO
-ALTER TABLE [dbo].[ABILITY]
-    ADD DEFAULT 0 FOR [a_DEX];
+ALTER TABLE [dbo].[SPELLS_SLOTS]
+    ADD DEFAULT 0 FOR [ss_lvl3];
 
 
 GO
-PRINT N'Creating unnamed constraint on [dbo].[ABILITY]...';
+PRINT N'Creating unnamed constraint on [dbo].[SPELLS_SLOTS]...';
 
 
 GO
-ALTER TABLE [dbo].[ABILITY]
-    ADD DEFAULT 0 FOR [a_INT];
+ALTER TABLE [dbo].[SPELLS_SLOTS]
+    ADD DEFAULT 0 FOR [ss_lvl4];
 
 
 GO
-PRINT N'Creating unnamed constraint on [dbo].[ABILITY]...';
+PRINT N'Creating unnamed constraint on [dbo].[SPELLS_SLOTS]...';
 
 
 GO
-ALTER TABLE [dbo].[ABILITY]
-    ADD DEFAULT 0 FOR [a_STR];
+ALTER TABLE [dbo].[SPELLS_SLOTS]
+    ADD DEFAULT 0 FOR [ss_lvl5];
 
 
 GO
-PRINT N'Creating unnamed constraint on [dbo].[ABILITY]...';
+PRINT N'Creating unnamed constraint on [dbo].[SPELLS_SLOTS]...';
 
 
 GO
-ALTER TABLE [dbo].[ABILITY]
-    ADD DEFAULT 0 FOR [a_WIS];
+ALTER TABLE [dbo].[SPELLS_SLOTS]
+    ADD DEFAULT 0 FOR [ss_lvl6];
 
 
 GO
-PRINT N'Creating unnamed constraint on [dbo].[CHARACTER_CLASSES]...';
+PRINT N'Creating unnamed constraint on [dbo].[SPELLS_SLOTS]...';
 
 
 GO
-ALTER TABLE [dbo].[CHARACTER_CLASSES]
-    ADD DEFAULT 0 FOR [ccl_level];
+ALTER TABLE [dbo].[SPELLS_SLOTS]
+    ADD DEFAULT 0 FOR [ss_lvl7];
+
+
+GO
+PRINT N'Creating unnamed constraint on [dbo].[SPELLS_SLOTS]...';
+
+
+GO
+ALTER TABLE [dbo].[SPELLS_SLOTS]
+    ADD DEFAULT 0 FOR [ss_lvl8];
+
+
+GO
+PRINT N'Creating unnamed constraint on [dbo].[SPELLS_SLOTS]...';
+
+
+GO
+ALTER TABLE [dbo].[SPELLS_SLOTS]
+    ADD DEFAULT 0 FOR [ss_lvl9];
+
+
+GO
+PRINT N'Creating [dbo].[FK_ITEM_EFFECT_ToITEM]...';
+
+
+GO
+ALTER TABLE [dbo].[ITEM_EFFECT]
+    ADD CONSTRAINT [FK_ITEM_EFFECT_ToITEM] FOREIGN KEY ([ie_iid]) REFERENCES [dbo].[ITEM] ([i_id]);
+
+
+GO
+PRINT N'Creating [dbo].[FK_ITEM_EFFECT_ToEFFECT]...';
+
+
+GO
+ALTER TABLE [dbo].[ITEM_EFFECT]
+    ADD CONSTRAINT [FK_ITEM_EFFECT_ToEFFECT] FOREIGN KEY ([if_efid]) REFERENCES [dbo].[EFFECT] ([ef_id]);
+
+
+GO
+PRINT N'Creating [dbo].[FK_EFFECT_PROCEDURE_ToEFFECT]...';
+
+
+GO
+ALTER TABLE [dbo].[EFFECT_PROCEDURE]
+    ADD CONSTRAINT [FK_EFFECT_PROCEDURE_ToEFFECT] FOREIGN KEY ([efp_efid]) REFERENCES [dbo].[EFFECT] ([ef_id]);
 
 
 GO
@@ -1256,6 +1283,159 @@ ALTER TABLE [dbo].[SUBLOCATION]
 
 
 GO
+PRINT N'Creating [dbo].[FK_CHARACTER_ToSPELLS_SLOTS_remaining]...';
+
+
+GO
+ALTER TABLE [dbo].[CHARACTER]
+    ADD CONSTRAINT [FK_CHARACTER_ToSPELLS_SLOTS_remaining] FOREIGN KEY ([c_spellslots_remaining]) REFERENCES [dbo].[SPELLS_SLOTS] ([ss_id]);
+
+
+GO
+PRINT N'Creating [dbo].[FK_CHARACTER_ToSPELLS_SLOTS_total]...';
+
+
+GO
+ALTER TABLE [dbo].[CHARACTER]
+    ADD CONSTRAINT [FK_CHARACTER_ToSPELLS_SLOTS_total] FOREIGN KEY ([c_spellslots_total]) REFERENCES [dbo].[SPELLS_SLOTS] ([ss_id]);
+
+
+GO
+PRINT N'Creating [dbo].[FK_CHARACTER_ToRACE]...';
+
+
+GO
+ALTER TABLE [dbo].[CHARACTER]
+    ADD CONSTRAINT [FK_CHARACTER_ToRACE] FOREIGN KEY ([c_rid]) REFERENCES [dbo].[RACE] ([r_id]);
+
+
+GO
+PRINT N'Creating [dbo].[FK_CHARACTER_ToABILITY]...';
+
+
+GO
+ALTER TABLE [dbo].[CHARACTER]
+    ADD CONSTRAINT [FK_CHARACTER_ToABILITY] FOREIGN KEY ([c_aid]) REFERENCES [dbo].[ABILITY] ([a_id]);
+
+
+GO
+PRINT N'Creating [dbo].[FK_CHARACTER_ToSKILL]...';
+
+
+GO
+ALTER TABLE [dbo].[CHARACTER]
+    ADD CONSTRAINT [FK_CHARACTER_ToSKILL] FOREIGN KEY ([c_sid]) REFERENCES [dbo].[SKILL] ([s_id]);
+
+
+GO
+PRINT N'Creating [dbo].[FK_CHARACTER_CLASSES_ToCHARACTER]...';
+
+
+GO
+ALTER TABLE [dbo].[CHARACTER_CLASSES]
+    ADD CONSTRAINT [FK_CHARACTER_CLASSES_ToCHARACTER] FOREIGN KEY ([ccl_cid]) REFERENCES [dbo].[CHARACTER] ([c_id]);
+
+
+GO
+PRINT N'Creating [dbo].[FK_CHARACTER_CLASSES_ToCLASS]...';
+
+
+GO
+ALTER TABLE [dbo].[CHARACTER_CLASSES]
+    ADD CONSTRAINT [FK_CHARACTER_CLASSES_ToCLASS] FOREIGN KEY ([ccl_clid]) REFERENCES [dbo].[CLASS] ([cl_id]);
+
+
+GO
+PRINT N'Creating [dbo].[FK_CLASS_ToABILITY]...';
+
+
+GO
+ALTER TABLE [dbo].[CLASS]
+    ADD CONSTRAINT [FK_CLASS_ToABILITY] FOREIGN KEY ([cl_aid]) REFERENCES [dbo].[ABILITY] ([a_id]);
+
+
+GO
+PRINT N'Creating [dbo].[FK_CLASS_ToSKILL]...';
+
+
+GO
+ALTER TABLE [dbo].[CLASS]
+    ADD CONSTRAINT [FK_CLASS_ToSKILL] FOREIGN KEY ([cl_sid]) REFERENCES [dbo].[SKILL] ([s_id]);
+
+
+GO
+PRINT N'Creating [dbo].[FK_EVENT_OCCURRED_TYPES_ToEVENT_OCCURRED]...';
+
+
+GO
+ALTER TABLE [dbo].[EVENT_OCCURRED_TYPES]
+    ADD CONSTRAINT [FK_EVENT_OCCURRED_TYPES_ToEVENT_OCCURRED] FOREIGN KEY ([eot_eoid]) REFERENCES [dbo].[EVENT_OCCURRED] ([eo_id]);
+
+
+GO
+PRINT N'Creating [dbo].[FK_EVENT_OCCURRED_TYPES_ToEVENT_TYPE]...';
+
+
+GO
+ALTER TABLE [dbo].[EVENT_OCCURRED_TYPES]
+    ADD CONSTRAINT [FK_EVENT_OCCURRED_TYPES_ToEVENT_TYPE] FOREIGN KEY ([eot_etid]) REFERENCES [dbo].[EVENT_TYPE] ([et_id]);
+
+
+GO
+PRINT N'Creating [dbo].[FK_EVENT_OCCURRED_ToLOCATION]...';
+
+
+GO
+ALTER TABLE [dbo].[EVENT_OCCURRED]
+    ADD CONSTRAINT [FK_EVENT_OCCURRED_ToLOCATION] FOREIGN KEY ([eo_lid]) REFERENCES [dbo].[LOCATION] ([l_id]);
+
+
+GO
+PRINT N'Creating [dbo].[FK_EVENT_OCCURRED_ToCAMPAIGN]...';
+
+
+GO
+ALTER TABLE [dbo].[EVENT_OCCURRED]
+    ADD CONSTRAINT [FK_EVENT_OCCURRED_ToCAMPAIGN] FOREIGN KEY ([eo_cmpid]) REFERENCES [dbo].[CAMPAIGN] ([cmp_id]);
+
+
+GO
+PRINT N'Creating [dbo].[FK_RACE_BACKGROUND_ToRACE]...';
+
+
+GO
+ALTER TABLE [dbo].[RACE_BACKGROUND]
+    ADD CONSTRAINT [FK_RACE_BACKGROUND_ToRACE] FOREIGN KEY ([rb_rid]) REFERENCES [dbo].[RACE] ([r_id]);
+
+
+GO
+PRINT N'Creating [dbo].[FK_RACE_BACKGROUND_ToBACKGROUND]...';
+
+
+GO
+ALTER TABLE [dbo].[RACE_BACKGROUND]
+    ADD CONSTRAINT [FK_RACE_BACKGROUND_ToBACKGROUND] FOREIGN KEY ([rb_bid]) REFERENCES [dbo].[BACKGROUND] ([b_id]);
+
+
+GO
+PRINT N'Creating [dbo].[FK_RACE_ToABILITY]...';
+
+
+GO
+ALTER TABLE [dbo].[RACE]
+    ADD CONSTRAINT [FK_RACE_ToABILITY] FOREIGN KEY ([r_aid]) REFERENCES [dbo].[ABILITY] ([a_id]);
+
+
+GO
+PRINT N'Creating [dbo].[FK_RACE_ToSKILL]...';
+
+
+GO
+ALTER TABLE [dbo].[RACE]
+    ADD CONSTRAINT [FK_RACE_ToSKILL] FOREIGN KEY ([r_sid]) REFERENCES [dbo].[SKILL] ([s_id]);
+
+
+GO
 PRINT N'Creating [dbo].[FK_ITEM_BACKGROUND_ToITEM]...';
 
 
@@ -1379,186 +1559,6 @@ PRINT N'Creating [dbo].[FK_SPELLS_EFFECT_ToEFFECT]...';
 GO
 ALTER TABLE [dbo].[SPELLS_EFFECT]
     ADD CONSTRAINT [FK_SPELLS_EFFECT_ToEFFECT] FOREIGN KEY ([sef_efid]) REFERENCES [dbo].[EFFECT] ([ef_id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_ITEM_EFFECT_ToITEM]...';
-
-
-GO
-ALTER TABLE [dbo].[ITEM_EFFECT]
-    ADD CONSTRAINT [FK_ITEM_EFFECT_ToITEM] FOREIGN KEY ([ie_iid]) REFERENCES [dbo].[ITEM] ([i_id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_ITEM_EFFECT_ToEFFECT]...';
-
-
-GO
-ALTER TABLE [dbo].[ITEM_EFFECT]
-    ADD CONSTRAINT [FK_ITEM_EFFECT_ToEFFECT] FOREIGN KEY ([if_efid]) REFERENCES [dbo].[EFFECT] ([ef_id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_EFFECT_PROCEDURE_ToEFFECT]...';
-
-
-GO
-ALTER TABLE [dbo].[EFFECT_PROCEDURE]
-    ADD CONSTRAINT [FK_EFFECT_PROCEDURE_ToEFFECT] FOREIGN KEY ([efp_efid]) REFERENCES [dbo].[EFFECT] ([ef_id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_EVENT_OCCURRED_TYPES_ToEVENT_OCCURRED]...';
-
-
-GO
-ALTER TABLE [dbo].[EVENT_OCCURRED_TYPES]
-    ADD CONSTRAINT [FK_EVENT_OCCURRED_TYPES_ToEVENT_OCCURRED] FOREIGN KEY ([eot_eoid]) REFERENCES [dbo].[EVENT_OCCURRED] ([eo_id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_EVENT_OCCURRED_TYPES_ToEVENT_TYPE]...';
-
-
-GO
-ALTER TABLE [dbo].[EVENT_OCCURRED_TYPES]
-    ADD CONSTRAINT [FK_EVENT_OCCURRED_TYPES_ToEVENT_TYPE] FOREIGN KEY ([eot_etid]) REFERENCES [dbo].[EVENT_TYPE] ([et_id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_RACE_BACKGROUND_ToRACE]...';
-
-
-GO
-ALTER TABLE [dbo].[RACE_BACKGROUND]
-    ADD CONSTRAINT [FK_RACE_BACKGROUND_ToRACE] FOREIGN KEY ([rb_rid]) REFERENCES [dbo].[RACE] ([r_id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_RACE_BACKGROUND_ToBACKGROUND]...';
-
-
-GO
-ALTER TABLE [dbo].[RACE_BACKGROUND]
-    ADD CONSTRAINT [FK_RACE_BACKGROUND_ToBACKGROUND] FOREIGN KEY ([rb_bid]) REFERENCES [dbo].[BACKGROUND] ([b_id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_CHARACTER_CLASSES_ToCHARACTER]...';
-
-
-GO
-ALTER TABLE [dbo].[CHARACTER_CLASSES]
-    ADD CONSTRAINT [FK_CHARACTER_CLASSES_ToCHARACTER] FOREIGN KEY ([ccl_cid]) REFERENCES [dbo].[CHARACTER] ([c_id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_CHARACTER_CLASSES_ToCLASS]...';
-
-
-GO
-ALTER TABLE [dbo].[CHARACTER_CLASSES]
-    ADD CONSTRAINT [FK_CHARACTER_CLASSES_ToCLASS] FOREIGN KEY ([ccl_clid]) REFERENCES [dbo].[CLASS] ([cl_id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_RACE_ToABILITY]...';
-
-
-GO
-ALTER TABLE [dbo].[RACE]
-    ADD CONSTRAINT [FK_RACE_ToABILITY] FOREIGN KEY ([r_aid]) REFERENCES [dbo].[ABILITY] ([a_id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_RACE_ToSKILL]...';
-
-
-GO
-ALTER TABLE [dbo].[RACE]
-    ADD CONSTRAINT [FK_RACE_ToSKILL] FOREIGN KEY ([r_sid]) REFERENCES [dbo].[SKILL] ([s_id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_CLASS_ToABILITY]...';
-
-
-GO
-ALTER TABLE [dbo].[CLASS]
-    ADD CONSTRAINT [FK_CLASS_ToABILITY] FOREIGN KEY ([cl_aid]) REFERENCES [dbo].[ABILITY] ([a_id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_CLASS_ToSKILL]...';
-
-
-GO
-ALTER TABLE [dbo].[CLASS]
-    ADD CONSTRAINT [FK_CLASS_ToSKILL] FOREIGN KEY ([cl_sid]) REFERENCES [dbo].[SKILL] ([s_id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_CHARACTER_ToSPELLS_SLOTS_remaining]...';
-
-
-GO
-ALTER TABLE [dbo].[CHARACTER]
-    ADD CONSTRAINT [FK_CHARACTER_ToSPELLS_SLOTS_remaining] FOREIGN KEY ([c_spellslots_remaining]) REFERENCES [dbo].[SPELLS_SLOTS] ([ss_id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_CHARACTER_ToSPELLS_SLOTS_total]...';
-
-
-GO
-ALTER TABLE [dbo].[CHARACTER]
-    ADD CONSTRAINT [FK_CHARACTER_ToSPELLS_SLOTS_total] FOREIGN KEY ([c_spellslots_total]) REFERENCES [dbo].[SPELLS_SLOTS] ([ss_id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_CHARACTER_ToRACE]...';
-
-
-GO
-ALTER TABLE [dbo].[CHARACTER]
-    ADD CONSTRAINT [FK_CHARACTER_ToRACE] FOREIGN KEY ([c_rid]) REFERENCES [dbo].[RACE] ([r_id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_CHARACTER_ToABILITY]...';
-
-
-GO
-ALTER TABLE [dbo].[CHARACTER]
-    ADD CONSTRAINT [FK_CHARACTER_ToABILITY] FOREIGN KEY ([c_aid]) REFERENCES [dbo].[ABILITY] ([a_id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_CHARACTER_ToSKILL]...';
-
-
-GO
-ALTER TABLE [dbo].[CHARACTER]
-    ADD CONSTRAINT [FK_CHARACTER_ToSKILL] FOREIGN KEY ([c_sid]) REFERENCES [dbo].[SKILL] ([s_id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_EVENT_OCCURRED_ToLOCATION]...';
-
-
-GO
-ALTER TABLE [dbo].[EVENT_OCCURRED]
-    ADD CONSTRAINT [FK_EVENT_OCCURRED_ToLOCATION] FOREIGN KEY ([eo_lid]) REFERENCES [dbo].[LOCATION] ([l_id]);
-
-
-GO
-PRINT N'Creating [dbo].[FK_EVENT_OCCURRED_ToCAMPAIGN]...';
-
-
-GO
-ALTER TABLE [dbo].[EVENT_OCCURRED]
-    ADD CONSTRAINT [FK_EVENT_OCCURRED_ToCAMPAIGN] FOREIGN KEY ([eo_cmpid]) REFERENCES [dbo].[CAMPAIGN] ([cmp_id]);
 
 
 GO
